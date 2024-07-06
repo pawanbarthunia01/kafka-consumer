@@ -15,8 +15,12 @@ public class ConsumerController {
     @Autowired
     private ConsumerService consumerService;
     @GetMapping("/")
-    public ResponseEntity<List<Employee>> fetchData(){
+    public ResponseEntity<List<String>> fetchData(){
         return new ResponseEntity<>(consumerService.fetchPayloads(), HttpStatus.OK);
     }
 
+    @GetMapping("/fetch")
+    public ResponseEntity<List<Employee>> fetchEmployeesData(){
+        return new ResponseEntity<>(consumerService.fetchEmployeesData(), HttpStatus.OK);
+    }
 }

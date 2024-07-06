@@ -17,19 +17,20 @@ import java.util.HashMap;
 public class ConsumerConfig {
 
 @Bean
- public ConsumerFactory<String, Employee> consumerFactory(){
+ public ConsumerFactory<String, String> consumerFactory(){
     HashMap<String,Object> properties=new HashMap<>();
     properties.put(org.apache.kafka.clients.consumer.ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,"localhost:9092");
     properties.put(org.apache.kafka.clients.consumer.ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-    properties.put(org.apache.kafka.clients.consumer.ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+    properties.put(org.apache.kafka.clients.consumer.ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
     properties.put(org.apache.kafka.clients.consumer.ConsumerConfig.GROUP_ID_CONFIG, "emp-grp");
+
 
     return new DefaultKafkaConsumerFactory<>(properties);
 }
 
 @Bean
-    public ConcurrentKafkaListenerContainerFactory<String,Employee> containerFactory(){
-    ConcurrentKafkaListenerContainerFactory factory = new ConcurrentKafkaListenerContainerFactory();
+    public ConcurrentKafkaListenerContainerFactory<String,String> containerFactory(){
+    ConcurrentKafkaListenerContainerFactory<String,String> factory = new ConcurrentKafkaListenerContainerFactory<String,String>();
     factory.setConsumerFactory(consumerFactory());
     return factory;
 }
